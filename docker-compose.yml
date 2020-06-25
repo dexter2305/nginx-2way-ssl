@@ -1,0 +1,22 @@
+version: '3.5'
+services: 
+  hellomssl.com:
+    image: nginx:1.19.0
+    ports: 
+      - target: 443
+        published: 8443
+    volumes:
+      - ${PWD}/app:/usr/share/nginx/mssl
+      - ${PWD}/certs/hellomssl.com:/etc/certs/hellomssl.com
+      - ${PWD}/certs/ca:/etc/certs/ca
+      - ${PWD}/conf:/etc/nginx/conf.d
+
+  user:
+    image: centos:7
+    volumes: 
+      - ${PWD}/certs/ca:/etc/certs/ca
+      - ${PWD}/certs/user:/etc/certs/user
+    command: sleep 30000 
+
+
+
